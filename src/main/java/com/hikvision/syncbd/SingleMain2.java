@@ -16,7 +16,13 @@ import com.hikvision.syncbd.service.SimpleService;
  */
 public class SingleMain2 {
 	private final static Logger logger = LoggerFactory.getLogger(SingleMain2.class);
-	public static void main(String args[]) {		
+	public static void main(String args[]) {	
+	  	logger.info("单线程！！！！！！！！！！!");
+	  	logger.info("单线程！！！！！！！！！！!");
+	  	logger.info("单线程！！！！！！！！！！!");
+	  	logger.info("单线程！！！！！！！！！！!");
+	  	logger.info("单线程！！！！！！！！！！!");
+	  	logger.info("单线程！！！！！！！！！！!");   	
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
 		Config config = ctx.getBean(Config.class);
 		SimpleService simpleService = ctx.getBean(SimpleService.class);

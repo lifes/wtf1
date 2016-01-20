@@ -18,10 +18,14 @@ import java.util.List;
 /**
  * @author chenhuaming 2016-1-11
  */
-public class Main {
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+public class MultiMain {
+    private static final Logger logger = LoggerFactory.getLogger(MultiMain.class);
 
     public static void main(String args[]) {
+    	logger.info("以多线程方式运行!");
+    	logger.info("以多线程方式运行!");
+    	logger.info("以多线程方式运行!");
+    	logger.info("以多线程方式运行!");
         ApplicationContext ctx = new ClassPathXmlApplicationContext(
                 "spring.xml");
 
@@ -30,7 +34,7 @@ public class Main {
        //Thread t2 = new Thread(new T2(ctx));
         //t1.start();
        // t2.start();
-
+        
         wtf(ctx);
 /*
         try {
