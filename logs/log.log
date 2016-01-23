@@ -74,3 +74,41 @@
 	at com.hikvision.syncbd.service.SimpleService.uploadBatch(SimpleService.java:201) [classes/:?]
 	at com.hikvision.syncbd.SingleMain2.main(SingleMain2.java:33) [classes/:?]
 
+2016-01-20 16:34:36  [main] INFO  com.hikvision.syncbd.MultiMain 25 main - 以多线程方式运行!
+2016-01-20 16:34:36  [main] INFO  com.hikvision.syncbd.MultiMain 26 main - 以多线程方式运行!
+2016-01-20 16:34:36  [main] INFO  com.hikvision.syncbd.MultiMain 27 main - 以多线程方式运行!
+2016-01-20 16:34:36  [main] INFO  com.hikvision.syncbd.MultiMain 28 main - 以多线程方式运行!
+2016-01-20 16:34:36  [main] INFO  org.springframework.context.support.AbstractApplicationContext 510 prepareRefresh - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@126f827: startup date [Wed Jan 20 16:34:36 CST 2016]; root of context hierarchy
+2016-01-20 16:34:36  [main] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader 317 loadBeanDefinitions - Loading XML bean definitions from class path resource [spring.xml]
+2016-01-20 16:34:36  [main] INFO  org.springframework.core.io.support.PropertiesLoaderSupport 172 loadProperties - Loading properties file from class path resource [config.properties]
+2016-01-20 16:34:36  [main] WARN  com.jolbox.bonecp.BoneCPConfig 315 setIdleConnectionTestPeriod - Please use setIdleConnectionTestPeriodInMinutes in place of setIdleConnectionTestPeriod. This method has been deprecated.
+2016-01-20 16:34:36  [main] WARN  com.jolbox.bonecp.BoneCPConfig 412 setIdleMaxAge - Please use setIdleMaxAgeInMinutes in place of setIdleMaxAge. This method has been deprecated.
+2016-01-20 16:34:36  [main] INFO  com.hikvision.syncbd.MultiMain 32 main - 初始化成功----
+----
+----
+----
+----
+
+2016-01-20 16:35:07  [main] INFO  com.hikvision.syncbd.MultiMain 25 main - 以多线程方式运行!
+2016-01-20 16:35:07  [main] INFO  com.hikvision.syncbd.MultiMain 26 main - 以多线程方式运行!
+2016-01-20 16:35:07  [main] INFO  com.hikvision.syncbd.MultiMain 27 main - 以多线程方式运行!
+2016-01-20 16:35:07  [main] INFO  com.hikvision.syncbd.MultiMain 28 main - 以多线程方式运行!
+2016-01-20 16:35:07  [main] INFO  org.springframework.context.support.AbstractApplicationContext 510 prepareRefresh - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@126f827: startup date [Wed Jan 20 16:35:07 CST 2016]; root of context hierarchy
+2016-01-20 16:35:07  [main] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader 317 loadBeanDefinitions - Loading XML bean definitions from class path resource [spring.xml]
+2016-01-20 16:35:07  [main] INFO  org.springframework.core.io.support.PropertiesLoaderSupport 172 loadProperties - Loading properties file from class path resource [config.properties]
+2016-01-20 16:35:07  [main] WARN  com.jolbox.bonecp.BoneCPConfig 315 setIdleConnectionTestPeriod - Please use setIdleConnectionTestPeriodInMinutes in place of setIdleConnectionTestPeriod. This method has been deprecated.
+2016-01-20 16:35:07  [main] WARN  com.jolbox.bonecp.BoneCPConfig 412 setIdleMaxAge - Please use setIdleMaxAgeInMinutes in place of setIdleMaxAge. This method has been deprecated.
+2016-01-20 16:35:07  [main] INFO  com.hikvision.syncbd.MultiMain 32 main - 初始化成功----
+----
+----
+----
+----
+
+2016-01-20 16:35:34  [Thread-1] ERROR com.hikvision.syncbd.service.SimpleService 203 uploadBatch - error:图片上传失败 com.hikvision.syncbd.common.WrapperException: 上传图片失败
+	at com.hikvision.syncbd.common.HttpRequest.sendPostWithFile2(HttpRequest.java:87) ~[classes/:?]
+	at com.hikvision.syncbd.common.HttpHelper.uploadImgSingleAndGetTheUrlBack(HttpHelper.java:34) ~[classes/:?]
+	at com.hikvision.syncbd.service.SimpleService.uploadBatch(SimpleService.java:199) [classes/:?]
+	at com.hikvision.syncbd.task.T4.run(T4.java:35) [classes/:?]
+	at java.lang.Thread.run(Thread.java:619) [?:1.6.0_14]
+
+2016-01-20 16:35:34  [Thread-1] INFO  com.hikvision.syncbd.service.SimpleService 267 uploadBatch - 上传2张图片成功，需要21.227秒钟

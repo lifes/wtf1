@@ -186,51 +186,64 @@ public class SimpleService {
 		long beginTime = System.currentTimeMillis();
 		for (File img : imgs) {
 			String imgName = img.getName();
-			if (!imgName.contains("A")) {
-				return;
-			}
-			String[] args = imgName.split("A");
-			if (args.length < 2) {
-				return;
-			}
-			if (!(args[1].contains("1B") || args[1].contains("2B"))) {
-				return;
-			}
+			logger.info("imgName===:" + imgName);
+			String flag = "";
+			String index = "";
 			String url = null;
-			try {
-				url = HttpHelper.uploadImgSingleAndGetTheUrlBack(img, config);
-				logger.info("Success:图片上传成功1");
-			} catch (Throwable e) {
-				logger.error("error:图片上传失败", e);
-			}			
-			if (url != null) {
-				String index = args[0];
-				String flag = args[1];
-				// 更新CrossingPass
-				logger.info("1B---");
-				if (flag.contains("1B")) {
-					VehiclePass vehiclePass = null;
-					simpleMapper.updateVehiclePass(url, index);
-					vehiclePass = simpleMapper.getVehiclePassByIndex(index);
-					logger.info("Success:更新本地数据库成功2");
-					if (vehiclePass != null) {
-						okVehiclePasses.add(vehiclePass);
+			if (imgName.contains("A")) {
+				String[] args = imgName.split("A");
+				if (args.length >= 2) {
+					index = args[0].trim();
+					flag = args[1];
+					if ((args[1].contains("1B") || args[1].contains("2B"))) {
+						try {
+							url = HttpHelper.uploadImgSingleAndGetTheUrlBack(
+									img, config);
+							logger.info("Success:图片上传成功1");
+						} catch (Throwable e) {
+							logger.error("error:图片上传失败", e);
+						}
 					}
 				}
-				logger.info("2B---");
-				if (flag.contains("2B")) {
-					VehicleViolation vehicleViolation = null;
-					simpleMapper.updateVehicleViolation(url, index);
-					vehicleViolation = simpleMapper
-							.getVehicleViolationByIndex(index);
-					logger.info("Success:更新本地数据库成功2");
-					if (vehicleViolation != null) {
-						okVehicleViolations.add(vehicleViolation);
-					}
-				}
-				okImgs.add(img);
 			}
+			if (url != null) {
+				try {
+					// 更新CrossingPass
+					logger.info("1B---");
+					if (flag.contains("1B")) {
+						VehiclePass vehiclePass = null;
+						simpleMapper.updateVehiclePass(url, index);
+						vehiclePass = simpleMapper.getVehiclePassByIndex(index);
+						logger.info("Success:更新本地数据库成功2");
+						if (vehiclePass != null) {
+							logger.info("查询到一条数据v1");
+							okVehiclePasses.add(vehiclePass);
+						} else {
+							logger.info("未查询到数据v1");
+						}
+					}
+					logger.info("2B---");
+					if (flag.contains("2B")) {
+						VehicleViolation vehicleViolation = null;
+						simpleMapper.updateVehicleViolation(url, index);
+						vehicleViolation = simpleMapper
+								.getVehicleViolationByIndex(index);
+						logger.info("Success:更新本地数据库成功2");
+						if (vehicleViolation != null) {
+							logger.info("查询到一条数据v2");
+							okVehicleViolations.add(vehicleViolation);
+						} else {
+							logger.info("未查询到数据v2");
+						}
+					}
+				} catch (Throwable e) {
+					logger.error("查到重复数据！！！！",e);
+				}
+			}
+			okImgs.add(img);
 		}
+		// 先删除保证不会出现重复数据
+		FileUtil.del(okImgs);
 		JSONArray records1 = new JSONArray();
 		for (VehiclePass r : okVehiclePasses) {
 			records1.add(r);
@@ -241,22 +254,24 @@ public class SimpleService {
 		}
 		if (records1.size() > 0) {
 			try {
-				HttpHelper.uploadRecordsByTable("BMS_VEHICLE_PASS", records1, config, null);
-				logger.info("上传"+records1.size()+"条数据成功");
+				HttpHelper.uploadRecordsByTable("BMS_VEHICLE_PASS", records1,
+						config, null);
+				logger.info("上传" + records1.size() + "条数据成功");
 			} catch (Exception e) {
-				logger.error("上传"+records1.size()+"条数据失败",e);
+				logger.error("上传" + records1.size() + "条数据失败", e);
 			}
 		}
 		if (records2.size() > 0) {
 			try {
-				HttpHelper.uploadRecordsByTable("BMS_VEHICLE_VIOLATION", records2, config, null);
-				logger.info("上传"+records2.size()+"条数据成功");
+				HttpHelper.uploadRecordsByTable("BMS_VEHICLE_VIOLATION",
+						records2, config, null);
+				logger.info("上传" + records2.size() + "条数据成功");
 			} catch (Exception e) {
-				logger.error("上传"+records2.size()+"条数据失败",e);
+				logger.error("上传" + records2.size() + "条数据失败", e);
 			}
 		}
 		long endTime = System.currentTimeMillis();
-		logger.info("上传"+okImgs.size()+"张图片成功，需要" + (endTime - beginTime) / 1000.0 + "秒钟");
-		FileUtil.del(okImgs);
+		logger.info("上传" + okImgs.size() + "张图片成功，需要" + (endTime - beginTime)
+				/ 1000.0 + "秒钟");
 	}
 }
